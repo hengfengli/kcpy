@@ -14,7 +14,7 @@ class ShardConsumer(object):
         self.client = boto3.client('kinesis')
         self.sleep_time = self.DEFAULT_SLEEP_TIME
 
-    def get_records(self, shard_iter_type='TRIM_HORIZON', seq=None):
+    def __iter__(self, shard_iter_type='TRIM_HORIZON', seq=None):
         kwargs = {
             'ShardIteratorType': shard_iter_type,
         }
@@ -42,7 +42,7 @@ class ShardConsumerProcess(Process):
         self.queue = Queue()
 
     def run(self):
-        for record in self.consumer.get_records():
+        for record in self.consumer:
             self.queue.put(record)
 
     def empty(self):
