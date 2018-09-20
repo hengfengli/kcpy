@@ -1,8 +1,23 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import kcpy
 
 from setuptools import setup, find_packages
+
+NAME = 'kcpy'
+
+from pathlib import Path
+
+README = Path('README.md')
+
+# -*- Long Description -*-
+
+
+if README.exists():
+    long_description = README.read_text(encoding='utf-8')
+else:
+    long_description = 'See http://pypi.org/project/{}'.format(NAME)
 
 setup(
     name='kcpy',
@@ -34,4 +49,5 @@ setup(
         'faker',
     ],
     zip_safe=False,
+    long_description=long_description,
 )

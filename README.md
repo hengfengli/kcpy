@@ -15,6 +15,10 @@ A kinesis consumer is purely written in python.
 
 ## Changelog
 
+### 0.1.1
+
+* Add a long description.
+
 ### 0.1.0
 
 * First version of kcpy.  

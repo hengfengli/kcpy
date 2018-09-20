@@ -1,5 +1,15 @@
 PYTHON ?= python
 GIT ?= git
+BUMPVERSION ?= bumpversion
+
+bump:
+	$(BUMPVERSION) patch
+
+bump-minor:
+	$(BUMPVERSION) minor
+
+bump-major:
+	$(BUMPVERSION) major
 
 clean: clean-pyc clean-build
 
