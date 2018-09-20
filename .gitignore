@@ -115,3 +115,5 @@ erl_crash.dump
 *.db
 Documentation/
 .cache/
+
+.pytest_cache/
