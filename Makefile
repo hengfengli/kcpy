@@ -36,5 +36,8 @@ build:
 
 dist: clean-dist build
 
+publish: dist
+	sh publish.sh
+
 lint:
 	flake8

@@ -119,3 +119,4 @@ Documentation/
 .pytest_cache/
 
 .idea/
+twine.env
