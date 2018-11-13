@@ -6,7 +6,7 @@ from multiprocessing import Process, Queue
 
 
 class ShardConsumer(object):
-    DEFAULT_SLEEP_TIME = 1.0
+    DEFAULT_SLEEP_TIME = 0.1
 
     def __init__(self, stream_name, shard_id):
         self.stream_name = stream_name
@@ -56,7 +56,7 @@ class ShardConsumerProcess(Process):
 
 
 class StreamConsumer(object):
-    DEFAULT_SLEEP_TIME = 1.0
+    DEFAULT_SLEEP_TIME = 0.1
 
     def __init__(self, stream_name):
         self.stream_name = stream_name

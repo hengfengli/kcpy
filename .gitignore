@@ -117,3 +117,5 @@ Documentation/
 .cache/
 
 .pytest_cache/
+
+.idea/
