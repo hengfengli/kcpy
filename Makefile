@@ -13,7 +13,7 @@ bump-major:
 
 clean: clean-pyc clean-build
 
-clean-dist: clean clean-git-force
+clean-dist: clean
 
 clean-build:
 	rm -rf build/ dist/ .eggs/ *.egg-info/ .tox/ .coverage cover/
