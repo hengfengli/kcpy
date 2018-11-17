@@ -48,6 +48,14 @@ The output would look like:
 
 ## Changelog
 
+### 0.1.4
+
+* Pass aws configurations into boto3 client directly. 
+
+### 0.1.3
+
+* Update the README. 
+
 ### 0.1.2
 
 * Add markdown support for long description. 

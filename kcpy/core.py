@@ -1,17 +1,15 @@
 import boto3
-import json
 import time
-import queue
 from multiprocessing import Process, Queue
 
 
 class ShardConsumer(object):
     DEFAULT_SLEEP_TIME = 0.1
 
-    def __init__(self, stream_name, shard_id):
+    def __init__(self, stream_name, shard_id, options):
         self.stream_name = stream_name
         self.shard_id = shard_id
-        self.client = boto3.client('kinesis')
+        self.client = boto3.client('kinesis', **options)
         self.sleep_time = self.DEFAULT_SLEEP_TIME
 
     def __iter__(self, shard_iter_type='TRIM_HORIZON', seq=None):
@@ -36,9 +34,9 @@ class ShardConsumer(object):
 
 
 class ShardConsumerProcess(Process):
-    def __init__(self, stream_name, shard_id):
+    def __init__(self, stream_name, shard_id, options):
         Process.__init__(self)
-        self.consumer = ShardConsumer(stream_name, shard_id)
+        self.consumer = ShardConsumer(stream_name, shard_id, options)
         self.queue = Queue()
 
     def run(self):
@@ -58,9 +56,10 @@ class ShardConsumerProcess(Process):
 class StreamConsumer(object):
     DEFAULT_SLEEP_TIME = 0.1
 
-    def __init__(self, stream_name):
+    def __init__(self, stream_name, **options):
         self.stream_name = stream_name
-        self.client = boto3.client('kinesis')
+        self.options = options
+        self.client = boto3.client('kinesis', **self.options)
         self.processes = {}
         self.sleep_time = self.DEFAULT_SLEEP_TIME
 
@@ -72,7 +71,7 @@ class StreamConsumer(object):
             for shard_data in stream_data['StreamDescription']['Shards']:
                 shard_id = shard_data['ShardId']
                 self.processes[shard_id] = ShardConsumerProcess(
-                    self.stream_name, shard_id)
+                    self.stream_name, shard_id, self.options)
                 self.processes[shard_id].start()
 
             while True:
