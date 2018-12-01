@@ -10,14 +10,14 @@ from .checkpoint import Checkpoint
 class ShardConsumer(object):
     DEFAULT_SLEEP_TIME = 0.1
 
-    def __init__(self, stream_name, shard_id, options, checkpoint: Optional[Checkpoint]=None):
+    def __init__(self, stream_name, shard_id, options, checkpoint: Optional[Checkpoint] = None):
         self.stream_name = stream_name
         self.shard_id = shard_id
         self.client = boto3.client('kinesis', **options)
         self.sleep_time = self.DEFAULT_SLEEP_TIME
         self.checkpoint = checkpoint
 
-    def __iter__(self, shard_iter_type='TRIM_HORIZON', seq: Optional[str]=None):
+    def __iter__(self, shard_iter_type='TRIM_HORIZON', seq: Optional[str] = None):
         if self.checkpoint and not seq:
             seq = self.checkpoint.get()
             if seq:
@@ -54,7 +54,7 @@ class ShardConsumer(object):
 
 
 class ShardConsumerProcess(Process):
-    def __init__(self, stream_name, shard_id, options, checkpoint: Optional[Checkpoint]=None):
+    def __init__(self, stream_name, shard_id, options, checkpoint: Optional[Checkpoint] = None):
         Process.__init__(self)
         self.consumer = ShardConsumer(stream_name, shard_id, options, checkpoint)
         self.queue = Queue()
