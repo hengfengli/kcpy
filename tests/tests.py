@@ -1,8 +1,11 @@
 import pytest
 import boto3
 import time
+import uuid
+import os
 from moto import mock_kinesis
 from kcpy import StreamConsumer
+from kcpy.checkpoint import Checkpoint
 from faker import Faker
 fake = Faker()
 
@@ -58,3 +61,12 @@ class TestCaseKcpy:
                 break
 
         assert count == 10
+
+    def test_checkpoint_storage(self):
+        random_db_file = f'kcpy_{uuid.uuid4()}.db'
+        c = Checkpoint(random_db_file, 'kcpy', 'consumer_1', 'stream_1', 'shard_1')
+        c.set('123')
+        assert c.get() == '123'
+        c.reset()
+        assert c.get() is None
+        os.remove(random_db_file)
