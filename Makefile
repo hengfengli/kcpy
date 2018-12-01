@@ -11,12 +11,15 @@ bump-minor:
 bump-major:
 	$(BUMPVERSION) major
 
-clean: clean-pyc clean-build
+clean: clean-pyc clean-build clean-test
 
 clean-dist: clean
 
 clean-build:
 	rm -rf build/ dist/ .eggs/ *.egg-info/ .tox/ .coverage cover/
+
+clean-test:
+	rm -rf .pytest_cache/
 
 clean-pyc:
 	-find . -type f -a \( -name "*.pyc" -o -name "*$$py.class" \) | xargs rm

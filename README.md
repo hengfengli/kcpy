@@ -86,6 +86,9 @@ Below shows the schema of checkpointing:
 
 ## Todo
 
+* Add type checking with `mypy` 
+* Add the config for travis CI
+* Add code coverage check
 * Support other storage solutions (mysql, dynamodb, redis, etc.) for checkpointing  
 * Rebalance when the number of shards changes
 * Allow kcpy to run on multiple machines

@@ -14,8 +14,8 @@ class Checkpoint(object):
     def init_db(self):
         conn = sqlite3.connect(self.sqlite_file_path)
         c = conn.cursor()
-        c.execute(f'''CREATE TABLE IF NOT EXISTS {self.db_name} 
-                     (consumer_name text, stream_name text, shard_id text, seq_no text)''')
+        c.execute(f'CREATE TABLE IF NOT EXISTS {self.db_name}'
+                  '(consumer_name text, stream_name text, shard_id text, seq_no text)')
         conn.commit()
         conn.close()
 
