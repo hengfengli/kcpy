@@ -22,8 +22,21 @@ class Checkpoint(object):
     def set(self, seq_no: str) -> None:
         conn = sqlite3.connect(self.sqlite_file_path)
         c = conn.cursor()
-        sql = f'INSERT INTO {self.db_name} (consumer_name, stream_name, shard_id, seq_no) ' + \
-              f"VALUES ('{self.consumer_name}', '{self.stream_name}', '{self.shard_id}', '{seq_no}')"
+
+        c.execute(f'SELECT seq_no FROM {self.db_name} '
+                  f"WHERE consumer_name = '{self.consumer_name}' "
+                  f"AND stream_name = '{self.stream_name}'"
+                  f"AND shard_id = '{self.shard_id}'")
+        row = c.fetchone()
+
+        if not row:
+            sql = f'INSERT INTO {self.db_name} (consumer_name, stream_name, shard_id, seq_no) ' + \
+                  f"VALUES ('{self.consumer_name}', '{self.stream_name}', '{self.shard_id}', '{seq_no}')"
+        else:
+            sql = f"UPDATE {self.db_name} SET seq_no = {seq_no} "  \
+                  f"WHERE consumer_name = '{self.consumer_name}' " \
+                  f"AND stream_name = '{self.stream_name}' "       \
+                  f"AND shard_id = '{self.shard_id}'"
         c.execute(sql)
         conn.commit()
         conn.close()
