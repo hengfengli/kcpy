@@ -20,7 +20,7 @@ pip install kcpy
 
 ```python
 from kcpy import StreamConsumer
-consumer = StreamConsumer(stream_name)
+consumer = StreamConsumer('my_stream_name')
 for record in consumer:
     print(record)
 ```
@@ -36,6 +36,15 @@ The output would look like:
 }
 ```
 
+Or, you can consume stream data with checkpointing: 
+
+```python
+from kcpy import StreamConsumer
+consumer = StreamConsumer('my_stream_name', consumer_name='my_consumer', checkpoint=True)
+for record in consumer:
+    print(record)
+```
+
 ## Features
 
 * Read records from a stream with multiple shards
@@ -47,6 +56,10 @@ The output would look like:
 * Allow kcpy to run on multiple machines
 
 ## Changelog
+
+### 0.1.5
+
+* Add consumer checkpointing with a simple sqlite storage solution. 
 
 ### 0.1.4
 

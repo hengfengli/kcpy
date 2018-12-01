@@ -79,7 +79,7 @@ class StreamConsumer(object):
     def __init__(self,
                  stream_name: str,
                  consumer_name: Optional[str] = None,
-                 checkpoint_on: bool = False,
+                 checkpoint: bool = False,
                  checkpoint_db_file_path: str = 'kcpy_checkpoint.db',
                  checkpoint_db_name: str = 'kcpy',
                  **options
@@ -89,7 +89,7 @@ class StreamConsumer(object):
         self.client = boto3.client('kinesis', **self.options)
         self.processes = {}
         self.sleep_time = self.DEFAULT_SLEEP_TIME
-        self.enable_checkpoint = checkpoint_on
+        self.enable_checkpoint = checkpoint
 
         if consumer_name:
             self.consumer_name = consumer_name

@@ -77,7 +77,7 @@ class TestCaseKcpy:
         stream_name = 'test_stream'
         self.create_stream(stream_name)
         self.fake_records(stream_name, count=10)
-        consumer = StreamConsumer(stream_name, consumer_name='consumer-1', checkpoint_on=True,
+        consumer = StreamConsumer(stream_name, consumer_name='consumer-1', checkpoint=True,
                                   checkpoint_db_file_path=checkpoint_db_file_path)
         count = 0
         for _ in consumer:
