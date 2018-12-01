@@ -45,13 +45,30 @@ for record in consumer:
     print(record)
 ```
 
+## Checkpointing
+
+Below shows the schema of checkpointing: 
+
+```
++---------------+-------------+----------+--------+
+| consumer_name | stream_name | shard_id | seq_no |
++---------------+-------------+----------+--------+
+| consumer_1    | stream_1    | shard_1  |   5    |
+| consumer_1    | stream_1    | shard_2  |   15   |
+| consumer_1    | stream_1    | ...      |   15   |
+| consumer_1    | stream_1    | shard_N  |   XX   |
+| consumer_2    | stream_1    | shard_1  |   6    |
++---------------+-------------+----------+--------+
+```
+
 ## Features
 
 * Read records from a stream with multiple shards
+* Save checkpoint for each shard consumer for a stream
 
 ## Todo
 
-* Save checkpoint for each shard
+* Support other storage solutions (mysql, dynamodb, redis, etc.) for checkpointing  
 * Rebalance when the number of shards changes
 * Allow kcpy to run on multiple machines
 
