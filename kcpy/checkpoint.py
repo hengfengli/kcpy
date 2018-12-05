@@ -1,5 +1,5 @@
 import sqlite3
-
+from typing import Optional
 
 class Checkpoint(object):
     def __init__(self, sqlite_file_path, db_name, consumer_name: str, stream_name: str, shard_id: str) -> None:
@@ -41,7 +41,7 @@ class Checkpoint(object):
         conn.commit()
         conn.close()
 
-    def get(self) -> str:
+    def get(self) -> Optional[str]:
         conn = sqlite3.connect(self.sqlite_file_path)
         c = conn.cursor()
         c.execute(f'SELECT seq_no FROM {self.db_name} '
@@ -54,6 +54,8 @@ class Checkpoint(object):
 
         if row:
             return row[0]
+        else:
+            return None
 
     def reset(self) -> None:
         conn = sqlite3.connect(self.sqlite_file_path)

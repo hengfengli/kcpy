@@ -1,7 +1,7 @@
 import boto3
 import time
 from multiprocessing import Process, Queue
-from typing import Optional
+from typing import Optional, Dict
 import uuid
 
 from .checkpoint import Checkpoint
@@ -57,7 +57,7 @@ class ShardConsumerProcess(Process):
     def __init__(self, stream_name, shard_id, options, checkpoint: Optional[Checkpoint] = None):
         Process.__init__(self)
         self.consumer = ShardConsumer(stream_name, shard_id, options, checkpoint)
-        self.queue = Queue()
+        self.queue = Queue()  # type: Queue
 
     def run(self):
         for record in self.consumer:
@@ -87,7 +87,7 @@ class StreamConsumer(object):
         self.stream_name = stream_name
         self.options = options
         self.client = boto3.client('kinesis', **self.options)
-        self.processes = {}
+        self.processes = {}  # type: Dict[str, ShardConsumerProcess]
         self.sleep_time = self.DEFAULT_SLEEP_TIME
         self.enable_checkpoint = checkpoint
 

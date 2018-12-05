@@ -1,0 +1,5 @@
+twine>=1.12.1
+bumpversion>=0.5.3
+flake8>=3.6.0
+tox>=3.5.3
+mypy>=0.641
