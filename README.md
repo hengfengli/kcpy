@@ -1,5 +1,10 @@
 # Kinesis Consumer in Python
 
+![[alt text][license]][license_url]
+![[alt text][wheel]][wheel_url] 
+![[alt text][pyversion]][pyversion_url] 
+![[alt text][pyimp]][pyimp_url]
+
 A kinesis consumer is purely written in python. This is a lightweight wrapper 
 on top of AWS python library [boto3](https://github.com/boto/boto3). You also can 
 consume records from Kinesis Data Stream (KDS) via: 
@@ -125,3 +130,15 @@ Copyright (c) 2018 Hengfeng Li. It is free software, and may
 be redistributed under the terms specified in the [LICENSE] file.
 
 [LICENSE]: /LICENSE
+
+[license]: https://img.shields.io/pypi/l/kcpy.svg "MIT License"
+[license_url]: https://opensource.org/licenses/MIT
+
+[wheel]: https://img.shields.io/pypi/wheel/kcpy.svg "kcpy can be installed via wheel" 
+[wheel_url]: http://pypi.org/project/kcpy/
+
+[pyversion]: https://img.shields.io/pypi/pyversions/kcpy.svg "Supported Python versions."
+[pyversion_url]: http://pypi.org/project/kcpy/
+
+[pyimp]: https://img.shields.io/pypi/implementation/kcpy.svg "Support Python implementations."
+[pyimp_url]: http://pypi.org/project/kcpy/
