@@ -91,7 +91,8 @@ Below shows the schema of checkpointing:
 
 ## Todo
 
-* Add type checking with `mypy` 
+* ~~Add type checking with mypy~~
+* ~~Add tox for automating multiple testing environments~~ 
 * Add the config for travis CI
 * Add code coverage check
 * Support other storage solutions (mysql, dynamodb, redis, etc.) for checkpointing  
@@ -99,6 +100,10 @@ Below shows the schema of checkpointing:
 * Allow kcpy to run on multiple machines
 
 ## Changelog
+
+### 0.1.6
+
+* Fix some issues in setup.py. 
 
 ### 0.1.5
 
