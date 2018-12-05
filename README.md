@@ -1,9 +1,9 @@
 # Kinesis Consumer in Python
 
-![[alt text][license]][license_url]
-![[alt text][wheel]][wheel_url] 
-![[alt text][pyversion]][pyversion_url] 
-![[alt text][pyimp]][pyimp_url]
+[![alt text][mit_license]][mit_license_url]
+[![alt text][wheel]][wheel_url] 
+[![alt text][pyversion]][pyversion_url] 
+[![alt text][pyimp]][pyimp_url]
 
 A kinesis consumer is purely written in python. This is a lightweight wrapper 
 on top of AWS python library [boto3](https://github.com/boto/boto3). You also can 
@@ -131,8 +131,8 @@ be redistributed under the terms specified in the [LICENSE] file.
 
 [LICENSE]: /LICENSE
 
-[license]: https://img.shields.io/pypi/l/kcpy.svg "MIT License"
-[license_url]: https://opensource.org/licenses/MIT
+[mit_license]: https://img.shields.io/pypi/l/kcpy.svg "MIT License"
+[mit_license_url]: https://opensource.org/licenses/MIT
 
 [wheel]: https://img.shields.io/pypi/wheel/kcpy.svg "kcpy can be installed via wheel" 
 [wheel_url]: http://pypi.org/project/kcpy/
