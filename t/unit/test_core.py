@@ -13,7 +13,8 @@ fake = Faker()
 fake_aws_creds = {
     'aws_access_key_id': 'fake_one',
     'aws_secret_access_key': 'fake_one',
-    'aws_session_token': 'fake_one'
+    'aws_session_token': 'fake_one',
+    'region': 'us-east-1'
 }
 
 

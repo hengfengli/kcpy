@@ -36,6 +36,7 @@ install:
       pyenv install "${IDENT}"
       pyenv global "${IDENT}"
   fi
+# https://github.com/travis-ci/travis-ci/issues/7940
 - sudo rm -f /etc/boto.cfg
 - pip list
 - travis_retry pip install -U tox
