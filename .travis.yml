@@ -32,4 +32,6 @@ after_success:
       .tox/$TOXENV/bin/coverage xml
       .tox/$TOXENV/bin/codecov -e IDENT
   fi;
+after_failure:
+  - cat /home/travis/build/HengfengLi/kcpy/.tox/log/tox-0.log
 script: tox -v -- -v
