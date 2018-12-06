@@ -1,5 +1,6 @@
 # Kinesis Consumer in Python
 
+[![alt text][build_status]][build_status_url]
 [![alt text][mit_license]][mit_license_url]
 [![alt text][wheel]][wheel_url] 
 [![alt text][pyversion]][pyversion_url] 
@@ -93,13 +94,16 @@ Below shows the schema of checkpointing:
 
 * ~~Add type checking with mypy~~
 * ~~Add tox for automating multiple testing environments~~ 
-* Add the config for travis CI
-* Add code coverage check
+* ~~Add the config for travis CI~~
 * Support other storage solutions (mysql, dynamodb, redis, etc.) for checkpointing  
 * Rebalance when the number of shards changes
 * Allow kcpy to run on multiple machines
 
 ## Changelog
+
+### 0.1.7
+
+* Add travis CI config and remove python3.5.  
 
 ### 0.1.6
 
@@ -135,6 +139,9 @@ Copyright (c) 2018 Hengfeng Li. It is free software, and may
 be redistributed under the terms specified in the [LICENSE] file.
 
 [LICENSE]: /LICENSE
+
+[build_status]: https://secure.travis-ci.org/HengfengLi/kcpy.png?branch=master "Build status"
+[build_status_url]: https://travis-ci.org/HengfengLi/kcpy
 
 [mit_license]: https://img.shields.io/pypi/l/kcpy.svg "MIT License"
 [mit_license_url]: https://opensource.org/licenses/MIT
