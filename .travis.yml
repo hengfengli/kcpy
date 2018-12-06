@@ -14,6 +14,20 @@ matrix:
     env: TOXENV=typecheck
     os: linux
     dist: xenial
+  - python: 3.5.0
+    env: TOXENV=3.5 IDENT="3.5.0" RUN_SUITE=y USE_PYENV=y
+    os: linux
+  - python: 3.6.0
+    env: TOXENV=3.6 IDENT="3.6.0" RUN_SUITE=y USE_PYENV=y
+    os: linux
+  - python: 3.7.0
+    env: TOXENV=3.7 IDENT="3.7.0" RUN_SUITE=y USE_PYENV=n
+    os: linux
+    dist: xenial
+  - python: 3.7.1
+    env: TOXENV=3.7 IDENT="3.7.1" RUN_SUITE=y USE_PYENV=n
+    os: linux
+    dist: xenial
 before_install:
 install:
 - |
@@ -26,7 +40,7 @@ install:
       pyenv global "${IDENT}"
   fi
 - pip list
-- travis_retry pip install -U tox setuptools
+- travis_retry pip install -U tox
 after_success:
 - |
   if [[ ! -z "$IDENT" ]]; then
