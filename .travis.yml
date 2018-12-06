@@ -25,13 +25,12 @@ install:
       pyenv install "${IDENT}"
       pyenv global "${IDENT}"
   fi
-- travis_retry pip install -U tox
+- pip list
+- travis_retry pip install -U tox setuptools
 after_success:
 - |
   if [[ ! -z "$IDENT" ]]; then
       .tox/$TOXENV/bin/coverage xml
       .tox/$TOXENV/bin/codecov -e IDENT
   fi;
-after_failure:
-  - cat /home/travis/build/HengfengLi/kcpy/.tox/log/tox-0.log
 script: tox -v -- -v
