@@ -14,9 +14,6 @@ matrix:
     env: TOXENV=typecheck
     os: linux
     dist: xenial
-  - python: 3.5.0
-    env: TOXENV=py35 IDENT="3.5.0" RUN_SUITE=y USE_PYENV=y
-    os: linux
   - python: 3.6.0
     env: TOXENV=py36 IDENT="3.6.0" RUN_SUITE=y USE_PYENV=y
     os: linux
@@ -39,6 +36,7 @@ install:
       pyenv install "${IDENT}"
       pyenv global "${IDENT}"
   fi
+- sudo rm -f /etc/boto.cfg
 - pip list
 - travis_retry pip install -U tox
 after_success:
