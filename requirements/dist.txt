@@ -5,3 +5,4 @@ tox>=3.5.3
 mypy>=0.641
 pytest-cov
 codecov
+setuptools>=30.3.0
