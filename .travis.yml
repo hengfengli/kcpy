@@ -25,7 +25,7 @@ install:
       pyenv install "${IDENT}"
       pyenv global "${IDENT}"
   fi
-- travis_retry pip install -U tox=3.5.3
+- travis_retry pip install -U tox
 after_success:
 - |
   if [[ ! -z "$IDENT" ]]; then
