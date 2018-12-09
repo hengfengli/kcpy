@@ -107,3 +107,47 @@ class TestCaseKcpy:
 
         assert list(consumer.processes.values())[0].consumer.checkpoint.get() == '20'
         os.remove(checkpoint_db_file_path)
+
+    def test_rebalance_shards(self):
+        stream_name = 'test_stream'
+        aws_config = dict(fake_aws_creds)
+        aws_config['endpoint_url'] = 'http://localhost:4567/'
+
+        client = boto3.client('kinesis', **aws_config)
+        # client.create_stream(StreamName=stream_name, ShardCount=1)
+
+        # stream_data = client.describe_stream(StreamName=stream_name)
+        # print(stream_data['StreamDescription']['StreamStatus'])
+
+        # shards = [shard['ShardId'] for shard in stream_data['StreamDescription']['Shards']]
+        # print(shards)
+
+        client.update_shard_count(
+            StreamName='string',
+            TargetShardCount=2,
+            ScalingType='UNIFORM_SCALING'
+        )
+
+        stream_data = client.describe_stream(StreamName=stream_name)
+        shards = [shard['ShardId'] for shard in stream_data['StreamDescription']['Shards']]
+        print(shards)
+
+        # client.update_shard_count(
+        #     StreamName='string',
+        #     TargetShardCount=1,
+        #     ScalingType='UNIFORM_SCALING'
+        # )
+        #
+        # stream_data = client.describe_stream(StreamName=stream_name)
+        # shards = [shard['ShardId'] for shard in stream_data['StreamDescription']['Shards']]
+        # print(shards)
+        #
+        # client.update_shard_count(
+        #     StreamName='string',
+        #     TargetShardCount=2,
+        #     ScalingType='UNIFORM_SCALING'
+        # )
+        #
+        # stream_data = client.describe_stream(StreamName=stream_name)
+        # shards = [shard['ShardId'] for shard in stream_data['StreamDescription']['Shards']]
+        # print(shards)

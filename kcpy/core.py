@@ -73,6 +73,68 @@ class ShardConsumerProcess(Process):
         return self.queue.get()
 
 
+class ShardRebalancingProcess(Process):
+    def __init__(
+            self,
+            client: boto3.client,
+            stream_name: str,
+            processes: Dict[str, ShardConsumerProcess],
+            options: Dict,
+            enable_checkpoint: bool,
+            checkpoint_db_file_path: str,
+            checkpoint_db_name: str,
+            consumer_name: str,
+            sleep_interval: int = 5
+    ) -> None:
+        Process.__init__(self)
+        self.client = client
+        self.processes = processes
+        self.stream_name = stream_name
+        self.options = options
+        self.sleep_interval = sleep_interval
+        self.enable_checkpoint = enable_checkpoint
+        self.checkpoint_db_file_path = checkpoint_db_file_path
+        self.checkpoint_db_name = checkpoint_db_name
+        self.consumer_name = consumer_name
+
+    def run(self):
+        while True:
+            stream_data = self.client.describe_stream(
+                StreamName=self.stream_name)
+
+            remote_shard_ids = set()
+            for shard_data in stream_data['StreamDescription']['Shards']:
+                shard_id = shard_data['ShardId']
+                remote_shard_ids.add(shard_id)
+
+            running_shard_ids = set(self.processes.keys())
+
+            # start processes for new shards
+            new_shard_ids = remote_shard_ids.difference(running_shard_ids)
+            for shard_id in new_shard_ids:
+                checkpoint = None
+                if self.enable_checkpoint:
+                    checkpoint = Checkpoint(
+                        self.checkpoint_db_file_path,
+                        self.checkpoint_db_name,
+                        self.consumer_name,
+                        self.stream_name,
+                        shard_id
+                    )
+                self.processes[shard_id] = ShardConsumerProcess(
+                    self.stream_name, shard_id, self.options, checkpoint=checkpoint)
+                self.processes[shard_id].start()
+
+            # end processes for old shards
+            terminated_shard_ids = running_shard_ids.difference(remote_shard_ids)
+            for shard_id in terminated_shard_ids:
+                p = self.processes[shard_id]
+                p.terminate()
+                p.join()
+
+            time.sleep(self.sleep_interval)
+
+
 class StreamConsumer(object):
     DEFAULT_SLEEP_TIME = 0.1
 
@@ -118,6 +180,8 @@ class StreamConsumer(object):
                 self.processes[shard_id] = ShardConsumerProcess(
                     self.stream_name, shard_id, self.options, checkpoint=checkpoint)
                 self.processes[shard_id].start()
+
+            # start a process to poll stream and re-balance new shards
 
             while True:
                 for shard_id, shard_consumer in self.processes.items():
