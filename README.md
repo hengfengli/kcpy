@@ -140,8 +140,8 @@ be redistributed under the terms specified in the [LICENSE] file.
 
 [LICENSE]: /LICENSE
 
-[build_status]: https://secure.travis-ci.org/HengfengLi/kcpy.png?branch=master "Build status"
-[build_status_url]: https://travis-ci.org/HengfengLi/kcpy
+[build_status]: https://secure.travis-ci.org/hengfengli/kcpy.png?branch=master "Build status"
+[build_status_url]: https://travis-ci.org/hengfengli/kcpy
 
 [mit_license]: https://img.shields.io/pypi/l/kcpy.svg "MIT License"
 [mit_license_url]: https://opensource.org/licenses/MIT
